@@ -1,9 +1,9 @@
 # J.A.R.V.I.S
--Jarvis ia a Speech recognition Program which works on the human voice.
+-Jarvis is a Speech recognition Program which works on the human voice.
 
 -It is a digital life assistant.
 
--It will help you to assists you in daily life such as open web page, tell you the time, set alarm, search through wikipedia, sending mail, etc.
+-It will help you to assists you in daily life such as open web page, tell you the time, set alarm, search through Wikipedia, sending mail, etc.
 
 ## Modules required
   import pyaudio(pip install pyaudio)
