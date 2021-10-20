@@ -9,6 +9,10 @@ import wolframalpha
 import os
 import sys
 import requests
+import math
+import webbrowser
+import pytemperature
+
 
 engine = pyttsx3.init('sapi5')
 
@@ -158,6 +162,45 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
                 speak("Sorry my friend. I am not able to send this email")
+           
+       elif 'time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S:")
+            speak(f" time is {strTime}")
+
+
+        elif 'weather' in query:
+            speak("searching Weather..")
+            query = query.replace("weatdeher", "")
+            results = "http://api.openweathermap.org/data/2.5/weather?appid=0c42f7f6b53b244c78a418f4f181282a&q="
+            speak("speak city name")
+            city = takeCommand().lower()
+            url = results + city
+            json_data = requests.get(url).json()
+            speak("according to Open Weather, weather condtion is")
+            y = json_data["main"]
+            current_temperature = math.ceil(pytemperature.k2c((y["temp"])))
+            current_pressure = y["pressure"]
+            current_humidiy = y["humidity"]
+
+            weather_des = json_data['weather'][0]["description"]
+
+            print(" Temperature  = " +
+                  str(current_temperature) +
+                  "\n atmospheric pressure (in hPa unit) = " +
+                  str(current_pressure) +
+                  "\n humidity (in percentage) = " +
+                  str(current_humidiy) +
+                  "\n description = " +
+                  str(weather_des))
+
+            speak(
+                f" Temperature is {current_temperature} degree celcius. atmospheric pressure (in hPa unit) is {current_pressure}. humidity (in percentage) is {current_humidiy} and {weather_des}")
+            speak(f"in {city}")
+
+            if "rain" in weather_des:
+                speak('take your umbrella with you')
+            else:
+                speak("")
 
          
         else:
